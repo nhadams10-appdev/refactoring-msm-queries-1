@@ -82,39 +82,33 @@
     </th>
   </tr>
 
-  <% the_id = @the_director.id %>
+  <% @the_director.filmography.order(:year).each do |a_movie| %>
+    <tr>
+      <td>
+        <%= a_movie.id %>
+      </td>
 
-  <% matching_movies = Movie.where({ :director_id => the_id }) %>
-  
-  <% films = matching_movies.order({ :year => :asc }) %>
+      <td>
+        <img src="<%= a_movie.image %>">
+      </td>
 
-  <% films.each do |a_movie| %>
-  <tr>
-    <td>
-      <%= a_movie.id %>
-    </td>
+      <td>
+        <%= a_movie.title %>
+      </td>
 
-    <td>
-      <img src="<%= a_movie.image %>">
-    </td>
+      <td>
+        <%= a_movie.year %>
+      </td>
 
-    <td>
-      <%= a_movie.title %>
-    </td>
+      <td>
+        <%= @the_director.name %>
+      </td>
 
-    <td>
-      <%= a_movie.year %>
-    </td>
-
-    <td>
-      <%= @the_director.name %>
-    </td>
-
-    <td>
-      <a href="/movies/<%= a_movie.id %>">
-        Show details
-      </a>
-    </td>
-  </tr>
+      <td>
+        <a href="/movies/<%= a_movie.id %>">
+          Show details
+        </a>
+      </td>
+    </tr>
   <% end %>
 </table>
